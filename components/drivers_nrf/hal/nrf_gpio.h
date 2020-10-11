@@ -423,6 +423,9 @@ __STATIC_INLINE void nrf_gpio_port_set(nrf_gpio_port_select_t port, uint8_t set_
  */
 __STATIC_INLINE void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t clr_mask);
 
+
+__STATIC_INLINE uint32_t nrf_gpio_pin_out_read(uint32_t pin_number);
+
 #ifndef SUPPRESS_INLINE_IMPLEMENTATION
 __STATIC_INLINE void nrf_gpio_range_cfg_output(uint32_t pin_range_start, uint32_t pin_range_end)
 {
@@ -640,6 +643,11 @@ __STATIC_INLINE void nrf_gpio_port_set(nrf_gpio_port_select_t port, uint8_t set_
 __STATIC_INLINE void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t clr_mask)
 {
     nrf_gpio_word_byte_write(&NRF_GPIO->OUTCLR, port, clr_mask);
+}
+
+__STATIC_INLINE uint32_t nrf_gpio_pin_out_read(uint32_t pin_number)
+{
+    return  ((NRF_GPIO->OUT >> pin_number) & 1UL);
 }
 #endif //SUPPRESS_INLINE_IMPLEMENTATION
 /** @} */
